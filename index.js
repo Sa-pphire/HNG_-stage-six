@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Sync the model with the database
-const seq = require("./config/db");
+const seq = require("./models/User");
 
 seq.sequelize.sync();
 
