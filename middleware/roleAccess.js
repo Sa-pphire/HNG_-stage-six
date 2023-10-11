@@ -30,7 +30,7 @@ function checkRole(roleId = []) {
     return async function(req, res, next) {
       console.log(roleId)
       const user = await User.findByPk(req.body.id);
-      if (user && user.role_id in roleId) {
+      if (user && roleId.includes(user.role_id)) {
         next();
       } else {
         return res.json({
