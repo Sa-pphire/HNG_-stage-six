@@ -24,7 +24,7 @@ router.get('/admin', verifyJwt, checkRole(3), (req, res) => {
     "success": true,
     message: 'This is an admin sample response' });
 });
-router.get('/adminuser', verifyJwt, checkRole(2||3), (req, res) => {
+router.get('/adminuser', verifyJwt, checkRole(2) || checkRole(3), (req, res) => {
   res.json({
     "status": 200,
     "success": true,
