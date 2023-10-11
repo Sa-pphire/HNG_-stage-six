@@ -33,10 +33,10 @@ function checkRole(roleId) {
       if (user && user.role_id === roleId) {
         next();
       } else {
-        if (err) return res.json({
+        return res.json({
           "status": 403,
           "success": false,
-          "Error": err.message
+          "Error": "Restricted Access"
         });;
       }
     };
