@@ -28,7 +28,7 @@ const verifyJwt = (req, res, next) => {
   
 function checkRole(roleId = []) {
     return async function(req, res, next) {
-      
+      console.log(roleId)
       const user = await User.findByPk(req.body.id);
       if (user && user.role_id in roleId) {
         next();
