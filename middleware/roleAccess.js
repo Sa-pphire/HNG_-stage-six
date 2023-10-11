@@ -6,7 +6,7 @@ const verifyJwt = (req, res, next) => {
 
     const authHeader = req.headers["authorization"];
     
-    if (!authHeader) return res.json({
+    if (!authHeader) return res.status(400).json({
       "status": 400,
       "success": false,
       "Error": "Bad request"
@@ -15,7 +15,7 @@ const verifyJwt = (req, res, next) => {
     const token = authHeader.split(" ")[1];
     jwt.verify(token, secret, (err, decoded) => {
       
-      if (err) return res.json({
+      if (err) return res.status(400).json({
         "status": 400,
         "success": false,
         "Error": err.message
@@ -33,7 +33,7 @@ function checkRole(roleId = []) {
       if (user && roleId.includes(user.role_id)) {
         next();
       } else {
-        return res.json({
+        return res.status(403).json({
           "status": 403,
           "success": false,
           "Error": "Restricted Access"
