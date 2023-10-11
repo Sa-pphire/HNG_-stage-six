@@ -26,11 +26,11 @@ const verifyJwt = (req, res, next) => {
     });
   };
   
-function checkRole(roleId) {
+function checkRole(roleId = []) {
     return async function(req, res, next) {
       
       const user = await User.findByPk(req.body.id);
-      if (user && user.role_id === roleId) {
+      if (user && user.role_id in roleId) {
         next();
       } else {
         return res.json({
