@@ -6,12 +6,20 @@ const verifyJwt = (req, res, next) => {
 
     const authHeader = req.headers["authorization"];
     
-    if (!authHeader) return res.sendStatus(403);
+    if (!authHeader) return res.json({
+      "status": 400,
+      "success": false,
+      "Error": "Bad request"
+    });;
 
     const token = authHeader.split(" ")[1];
     jwt.verify(token, secret, (err, decoded) => {
       
-      if (err) return res.sendStatus(403); //invalid token
+      if (err) return res.json({
+        "status": 400,
+        "success": false,
+        "Error": err.message
+      });
       
       req.body = decoded;
       next();
@@ -25,7 +33,11 @@ function checkRole(roleId) {
       if (user && user.role_id === roleId) {
         next();
       } else {
-        res.status(403).send('Forbidden');
+        if (err) return res.json({
+          "status": 403,
+          "success": false,
+          "Error": err.message
+        });;
       }
     };
   }
